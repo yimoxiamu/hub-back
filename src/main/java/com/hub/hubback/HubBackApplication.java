@@ -9,4 +9,5 @@ public class HubBackApplication {
     public static void main(String[] args) {
         SpringApplication.run(HubBackApplication.class, args);
     }
+
 }
