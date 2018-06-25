@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hub.hubback.dao.BlogTypeMapper" >
+    <resultMap id="BaseResultMap" type="com.hub.hubback.entity.BlogTypeEntity" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="blog_type" property="blog_type" jdbcType="VARCHAR" />
+        <result column="count" property="count" jdbcType="INTEGER" />
+    </resultMap>
+    <select id="getAllType" resultMap="BaseResultMap">
+    select
+    *
+    from
+    t_type
+    </select>
+</mapper>
