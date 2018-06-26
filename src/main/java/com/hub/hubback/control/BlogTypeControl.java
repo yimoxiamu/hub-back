@@ -1,9 +1,9 @@
 package com.hub.hubback.control;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.hub.hubback.dao.BlogMainMapper;
+import com.hub.hubback.entity.BlogMainEntity;
 import com.hub.hubback.entity.BlogTypeEntity;
+import com.hub.hubback.service.BlogMainService;
 import com.hub.hubback.service.BlogTypeService;
 import com.hub.hubback.util.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +28,8 @@ public class BlogTypeControl {
     @Autowired
     BlogTypeService blogTypeService;
 
+    @Autowired
+    BlogMainService blogMainService;
 
     @RequestMapping("/defaultType")
     public ResultUtil getAllType(){
@@ -37,4 +39,10 @@ public class BlogTypeControl {
         resultUtil.setRetMsg(blogTypeEntities);
         return resultUtil;
     }
+
+    @RequestMapping("test")
+    public List<BlogMainEntity> test(){
+        return blogMainService.test();
+    }
+
 }

@@ -10,4 +10,4 @@ mybatis:
   mapper-locations: classpath:mybatis/*.xml
 logging:
   level:
-    com.hub.hubback.dao: info
+    com.hub.hubback.dao: debug

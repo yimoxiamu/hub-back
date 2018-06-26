@@ -1,5 +1,8 @@
 package com.hub.hubback.entity;
 
+import lombok.Data;
+
+import java.sql.Struct;
 import java.util.Date;
 
 /**
@@ -10,11 +13,16 @@ import java.util.Date;
  * @Date 2018/6/25 15:45
  * @VERSION 1.0
  **/
+@Data
 public class BlogMainEntity {
     private int id;
-    private int blog_type;
+    private BlogTypeEntity blogTypeEntity;
     private String blog_text;
     private String blog_img;
     private Date insert_time;
     private Date update_time;
+    private int read_count;
+    private int like_count;
+    private String blog_title;
+    private String blog_auth;
 }
