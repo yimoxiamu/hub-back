@@ -1,11 +1,10 @@
 package com.hub.hubback.control;
 
-import com.hub.hubback.dao.BlogMainMapper;
 import com.hub.hubback.entity.BlogMainEntity;
 import com.hub.hubback.entity.BlogTypeEntity;
 import com.hub.hubback.service.BlogMainService;
 import com.hub.hubback.service.BlogTypeService;
-import com.hub.hubback.util.ResultUtil;
+import com.hub.hubback.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,12 +31,9 @@ public class BlogTypeControl {
     BlogMainService blogMainService;
 
     @RequestMapping("/defaultType")
-    public ResultUtil getAllType(){
-        ResultUtil resultUtil=new ResultUtil();
+    public Result getAllType(){
         List<BlogTypeEntity> blogTypeEntities=blogTypeService.getAllType();
-        resultUtil.setRetCode(0);
-        resultUtil.setRetMsg(blogTypeEntities);
-        return resultUtil;
+        return Result.success(blogTypeEntities);
     }
 
     @RequestMapping("test")
