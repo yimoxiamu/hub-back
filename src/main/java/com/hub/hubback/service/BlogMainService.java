@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface BlogMainService {
     List<BlogMainEntity> test();
+    String errorTest(String str);
 }

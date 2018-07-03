@@ -2,7 +2,9 @@ package com.hub.hubback.service.impl;
 
 import com.hub.hubback.dao.BlogMainMapper;
 import com.hub.hubback.entity.BlogMainEntity;
+import com.hub.hubback.exception.GlobalException;
 import com.hub.hubback.service.BlogMainService;
+import com.hub.hubback.util.CodeMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +29,13 @@ public class BlogMainServiceImpl implements BlogMainService {
         List<BlogMainEntity> blogMainEntities=blogMainMapper.test();
         return blogMainEntities;
     }
+
+    @Override
+    public String errorTest(String str) {
+        if(str=="12345"||str.equals("12345")){
+            throw new GlobalException(CodeMsg.MOBILE_EMPTY);
+        }
+        return str;
+    }
+
 }

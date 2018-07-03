@@ -37,8 +37,8 @@ public class BlogTypeControl {
     }
 
     @RequestMapping("test")
-    public List<BlogMainEntity> test(){
-        return blogMainService.test();
+    public Result test(String str){
+       String Str= blogMainService.errorTest(str);
+        return Result.success(Str);
     }
-
 }
