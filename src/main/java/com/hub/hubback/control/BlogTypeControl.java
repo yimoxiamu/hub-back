@@ -33,12 +33,8 @@ public class BlogTypeControl {
     @RequestMapping("/defaultType")
     public Result getAllType(){
         List<BlogTypeEntity> blogTypeEntities=blogTypeService.getAllType();
+        log.info(blogTypeEntities.toString());
         return Result.success(blogTypeEntities);
     }
 
-    @RequestMapping("test")
-    public Result test(String str){
-       String Str= blogMainService.errorTest(str);
-        return Result.success(Str);
-    }
 }

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://39.106.1.43:3306/blog
+    url: jdbc:mysql://39.106.1.43:3306/blog?useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 1234
@@ -11,3 +11,4 @@ mybatis:
 logging:
   level:
     com.hub.hubback.dao: debug
+  path: C:\Users\user\Desktop\log

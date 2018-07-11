@@ -11,18 +11,86 @@
         <result column="like_count" property="like_count" jdbcType="INTEGER"/>
         <result column="blog_title" property="blog_title" jdbcType="VARCHAR"/>
         <result column="blog_auth" property="blog_auth" jdbcType="VARCHAR"/>
+        <result column="blog_description" property="blog_description" jdbcType="VARCHAR"/>
         <association property="blogTypeEntity" javaType="com.hub.hubback.entity.BlogTypeEntity" column="type_id">
             <id column="btid" property="id" jdbcType="INTEGER"/>
             <result column="blog_type" property="blog_type" jdbcType="VARCHAR"/>
             <result column="count" property="count" jdbcType="INTEGER"></result>
         </association>
     </resultMap>
-    <select id="test" resultMap="BaseResultMap">
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="blogType!=null">
+                type_id,
+            </if>
+            <if test="title!=null and title.length()>0">
+                blog_title,
+            </if>
+            <if test="text!=null and text.length()>0">
+                blog_text,
+            </if>
+            <if test="blog_title_img!=null and blog_title_img.length()>0">
+                blog_title_img,
+            </if>
+            <if test="insertTime!=null and insertTime.length()>0">
+                insert_time,
+            </if>
+            <if test="update_time!=null and update_time.length()>0">
+                update_time,
+            </if>
+            <if test="like_count!=null">
+                like_count,
+            </if>
+            <if test="read_count!=null">
+                read_count,
+            </if>
+            <if test="blog_auth!=null and blog_auth.length()>0">
+                blog_auth,
+            </if>
+            <if test="description!=null and description.length()>0">
+                blog_description
+            </if>
+        </trim>
+    </sql>
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="blogType!=null">
+                #{blogType},
+            </if>
+            <if test="title!=null and title.length()>0">
+                #{title},
+            </if>
+            <if test="text!=null and text.length()>0">
+                #{text},
+            </if>
+            <if test="blog_title_img!=null and blog_title_img.length()>0">
+                #{blog_title_img},
+            </if>
+            <if test="insertTime!=null and insertTime.length()>0">
+                #{insertTime},
+            </if>
+            <if test="update_time!=null and update_time.length()>0">
+                #{update_time},
+            </if>
+            <if test="like_count!=null">
+                #{like_count},
+            </if>
+            <if test="read_count!=null">
+                #{read_count},
+            </if>
+            <if test="blog_auth!=null and blog_auth.length()>0">
+                #{blog_auth},
+            </if>
+            <if test="description!=null and description.length()>0">
+                #{description}
+            </if>
+        </trim>
+    </sql>
+    <select id="getAllBlog" resultMap="BaseResultMap">
         select
          bm.id,
          bm.blog_text,
-         bm.type_id,
-         bm.blog_img,
+         bm.blog_title_img,
          bm.insert_time,
          bm.update_time,
          bm.read_count,
@@ -31,9 +99,12 @@
          bm.blog_auth,
          bt.id as "btid",
          bt.blog_type,
-         bt.count
+         bm.blog_description
          from
          blog_main bm
          left join t_type bt ON bm.type_id=bt.id
     </select>
+    <insert id="saveBlog" parameterType="java.util.Map">
+        insert into blog_main (<include refid="key"></include>) values(<include refid="value"></include>)
+    </insert>
 </mapper>

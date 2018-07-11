@@ -1,10 +1,10 @@
 package com.hub.hubback.service;
 
-import com.hub.hubback.entity.BlogMainEntity;
+import com.hub.hubback.util.Result;
 
-import java.util.List;
+import java.util.Map;
 
 public interface BlogMainService {
-    List<BlogMainEntity> test();
-    String errorTest(String str);
+    Result saveBlog(Map<String,String> map);
+    Result showBlog();
 }

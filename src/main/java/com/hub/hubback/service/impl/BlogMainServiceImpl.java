@@ -5,10 +5,14 @@ import com.hub.hubback.entity.BlogMainEntity;
 import com.hub.hubback.exception.GlobalException;
 import com.hub.hubback.service.BlogMainService;
 import com.hub.hubback.util.CodeMsg;
+import com.hub.hubback.util.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName BlogMainServiceImpl
@@ -18,24 +22,36 @@ import java.util.List;
  * @Date 2018/6/25 16:35
  * @VERSION 1.0
  **/
+@Slf4j
 @Service
 public class BlogMainServiceImpl implements BlogMainService {
 
     @Autowired(required = false)
     public BlogMainMapper blogMainMapper;
 
+
     @Override
-    public List<BlogMainEntity> test() {
-        List<BlogMainEntity> blogMainEntities=blogMainMapper.test();
-        return blogMainEntities;
+    public Result saveBlog(Map<String, String> map) {
+        try {
+            blogMainMapper.saveBlog(map);
+        }catch (Exception e){
+            log.info(e.getMessage());
+            return new Result(CodeMsg.DB_ERROR);
+        }
+        return Result.success("success");
     }
 
     @Override
-    public String errorTest(String str) {
-        if(str=="12345"||str.equals("12345")){
-            throw new GlobalException(CodeMsg.MOBILE_EMPTY);
+    public Result showBlog() {
+        List<BlogMainEntity> list=new ArrayList();
+        try {
+             list=blogMainMapper.getAllBlog();
+        }catch (Exception e){
+            log.info(e.getMessage());
+            return new Result(CodeMsg.DB_ERROR);
         }
-        return str;
+        return Result.success(list);
     }
+
 
 }

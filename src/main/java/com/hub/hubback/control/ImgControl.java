@@ -18,8 +18,8 @@ public class ImgControl {
     @RequestMapping("/uploadImg")
     public Result<String> uploadImg(@RequestParam MultipartFile img) throws IOException {
         IOUtil ioUtil=new IOUtil();
-        System.out.println(img.getContentType()+"  "+img.getOriginalFilename()+" "+img.getName());
-        String filename="http://localhost:8095/images/"+ioUtil.ImgUpload(img);
+        log.info(img.getContentType()+"  "+img.getOriginalFilename()+" "+img.getName());
+        String filename="http://39.106.1.43:9595/images/"+ioUtil.ImgUpload(img);
        return Result.success(filename);
     }
 

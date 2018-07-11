@@ -17,12 +17,13 @@ import java.util.Date;
 public class BlogMainEntity {
     private int id;
     private BlogTypeEntity blogTypeEntity;
+    private String blog_title;
     private String blog_text;
-    private String blog_img;
+    private String blog_title_img;
     private Date insert_time;
     private Date update_time;
     private int read_count;
     private int like_count;
-    private String blog_title;
     private String blog_auth;
+    private String blog_description;
 }
