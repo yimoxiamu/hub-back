@@ -8,6 +8,7 @@ import java.util.Map;
 public interface BlogMainMapper {
     List<BlogMainEntity> getAllBlog();
     void saveBlog(Map map);
-    BlogMainEntity showBlogById(String id);
+    BlogMainEntity showBlogByUUID(String id);
     void addReadCount(String id);
+    void addLikeCount(String id);
 }

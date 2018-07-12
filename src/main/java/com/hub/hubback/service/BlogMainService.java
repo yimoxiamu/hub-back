@@ -9,4 +9,5 @@ public interface BlogMainService {
     Result showBlog();
     Result showBlogById(String id);
     Result addReadCount(String id);
+    Result addLikeCount(String id);
 }

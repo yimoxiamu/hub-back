@@ -27,4 +27,9 @@ public class BlogMainEntity {
     private String blog_auth;
     private String blog_description;
     private String blog_info_url;
+    private String blog_uuid;
+    private String last_blog_uuid;
+    private String last_blog_title;
+    private String next_blog_uuid;
+    private String next_blog_title;
 }

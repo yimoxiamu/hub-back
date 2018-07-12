@@ -27,14 +27,10 @@ public class BlogTypeControl {
     @Autowired
     BlogTypeService blogTypeService;
 
-    @Autowired
-    BlogMainService blogMainService;
-
     @RequestMapping("/defaultType")
     public Result getAllType(){
-        List<BlogTypeEntity> blogTypeEntities=blogTypeService.getAllType();
-        log.info(blogTypeEntities.toString());
-        return Result.success(blogTypeEntities);
+
+        return blogTypeService.getAllType();
     }
 
 }
