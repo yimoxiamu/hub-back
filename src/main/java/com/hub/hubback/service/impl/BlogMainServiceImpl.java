@@ -53,5 +53,28 @@ public class BlogMainServiceImpl implements BlogMainService {
         return Result.success(list);
     }
 
+    @Override
+    public Result showBlogById(String id) {
+        BlogMainEntity blogMainEntity=new BlogMainEntity();
+        try {
+            blogMainEntity=blogMainMapper.showBlogById(id);
+        }catch (Exception e){
+            log.info(e.getMessage());
+            return new Result(CodeMsg.DB_ERROR);
+        }
+        return Result.success(blogMainEntity);
+    }
+
+    @Override
+    public Result addReadCount(String id) {
+        try {
+            blogMainMapper.addReadCount(id);
+        }catch (Exception e){
+            log.info(e.getMessage());
+            return new Result(CodeMsg.DB_ERROR);
+        }
+        return Result.success("success");
+    }
+
 
 }

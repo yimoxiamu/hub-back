@@ -26,4 +26,5 @@ public class BlogMainEntity {
     private int like_count;
     private String blog_auth;
     private String blog_description;
+    private String blog_info_url;
 }

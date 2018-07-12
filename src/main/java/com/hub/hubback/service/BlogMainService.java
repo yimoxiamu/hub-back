@@ -7,4 +7,6 @@ import java.util.Map;
 public interface BlogMainService {
     Result saveBlog(Map<String,String> map);
     Result showBlog();
+    Result showBlogById(String id);
+    Result addReadCount(String id);
 }

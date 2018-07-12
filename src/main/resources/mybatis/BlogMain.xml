@@ -11,6 +11,7 @@
         <result column="like_count" property="like_count" jdbcType="INTEGER"/>
         <result column="blog_title" property="blog_title" jdbcType="VARCHAR"/>
         <result column="blog_auth" property="blog_auth" jdbcType="VARCHAR"/>
+        <result column="blog_info_url" property="blog_info_url" jdbcType="VARCHAR"/>
         <result column="blog_description" property="blog_description" jdbcType="VARCHAR"/>
         <association property="blogTypeEntity" javaType="com.hub.hubback.entity.BlogTypeEntity" column="type_id">
             <id column="btid" property="id" jdbcType="INTEGER"/>
@@ -48,7 +49,10 @@
                 blog_auth,
             </if>
             <if test="description!=null and description.length()>0">
-                blog_description
+                blog_description,
+            </if>
+            <if test="blog_info_url!=null and blog_info_url.length()>0">
+                blog_info_url
             </if>
         </trim>
     </sql>
@@ -82,7 +86,10 @@
                 #{blog_auth},
             </if>
             <if test="description!=null and description.length()>0">
-                #{description}
+                #{description},
+            </if>
+            <if test="blog_info_url!=null and blog_info_url.length()>0">
+                #{blog_info_url}
             </if>
         </trim>
     </sql>
@@ -99,12 +106,50 @@
          bm.blog_auth,
          bt.id as "btid",
          bt.blog_type,
-         bm.blog_description
+         bm.blog_description,
+         bm.blog_info_url
          from
          blog_main bm
          left join t_type bt ON bm.type_id=bt.id
+         order by bm.insert_time desc
+    </select>
+    <select id="showBlogById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+         bm.id,
+         bm.blog_text,
+         bm.blog_title_img,
+         bm.insert_time,
+         bm.update_time,
+         bm.read_count,
+         bm.like_count,
+         bm.blog_title,
+         bm.blog_auth,
+         bt.id as "btid",
+         bt.blog_type,
+         bm.blog_description,
+         bm.blog_info_url
+         from
+         blog_main bm
+         left join t_type bt ON bm.type_id=bt.id
+         where bm.id=#{0}
     </select>
     <insert id="saveBlog" parameterType="java.util.Map">
         insert into blog_main (<include refid="key"></include>) values(<include refid="value"></include>)
     </insert>
+    <update id="addReadCount" parameterType="java.lang.String">
+        UPDATE blog_main bm1
+          SET bm1.read_count = (
+	          SELECT
+		      bm3.read_count
+	          FROM
+		        (
+			        SELECT
+				    bm2.read_count
+			        FROM
+				    blog_main bm2
+			        where bm2.id=#{0}
+		        ) bm3
+                                  ) + 1
+          where bm1.id=#{0}
+    </update>
 </mapper>

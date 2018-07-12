@@ -8,4 +8,6 @@ import java.util.Map;
 public interface BlogMainMapper {
     List<BlogMainEntity> getAllBlog();
     void saveBlog(Map map);
+    BlogMainEntity showBlogById(String id);
+    void addReadCount(String id);
 }

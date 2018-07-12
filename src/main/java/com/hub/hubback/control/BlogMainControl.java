@@ -35,11 +35,22 @@ public class BlogMainControl {
         map.put("description",description);
         map.put("blogType",blogType);
         map.put("insertTime",DateUtil.dataFormate(new Date()));
+        map.put("blog_info_url","info.html?"+title);
         return blogMainService.saveBlog(map);
     }
 
     @RequestMapping(value = "/showAllBlog")
     public Result showAllBlog(){
         return blogMainService.showBlog();
+    }
+
+    @RequestMapping(value = "/showOneBlog")
+    public Result showOneBlog(String id){
+        return blogMainService.showBlogById(id);
+    }
+
+    @RequestMapping(value = "/addReadCount")
+    public Result addReadCount(String id){
+        return blogMainService.addReadCount(id);
     }
 }
