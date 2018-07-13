@@ -14,10 +14,12 @@
         <result column="blog_info_url" property="blog_info_url" jdbcType="VARCHAR"/>
         <result column="blog_description" property="blog_description" jdbcType="VARCHAR"/>
         <result column="blog_uuid" property="blog_uuid" jdbcType="VARCHAR"/>
+        <result column="blog_title_img" property="blog_title_img" jdbcType="VARCHAR"/>
         <result column="next_blog_uuid" property="next_blog_uuid" jdbcType="VARCHAR"/>
         <result column="next_blog_title" property="next_blog_title" jdbcType="VARCHAR"/>
         <result column="last_blog_title" property="last_blog_title" jdbcType="VARCHAR"/>
         <result column="last_blog_uuid" property="last_blog_uuid" jdbcType="VARCHAR"/>
+        <result column="blog_status" property="blog_status" jdbcType="VARCHAR"/>
         <association property="blogTypeEntity" javaType="com.hub.hubback.entity.BlogTypeEntity" column="type_id">
             <id column="btid" property="id" jdbcType="INTEGER"/>
             <result column="blog_type" property="blog_type" jdbcType="VARCHAR"/>
@@ -72,7 +74,10 @@
                 last_blog_uuid,
             </if>
             <if test="last_blog_title!=null and last_blog_title.length()>0">
-                last_blog_title
+                last_blog_title,
+            </if>
+            <if test="status!=null and status.length()>0">
+                blog_status
             </if>
         </trim>
     </sql>
@@ -124,7 +129,10 @@
                 #{last_blog_uuid},
             </if>
             <if test="last_blog_title!=null and last_blog_title.length()>0">
-                #{last_blog_title}
+                #{last_blog_title},
+            </if>
+            <if test="status!=null and status.length()>0">
+                #{status}
             </if>
         </trim>
     </sql>
@@ -151,6 +159,59 @@
          from
          blog_main bm
          left join t_type bt ON bm.type_id=bt.id
+         where bm.blog_status='0'
+         order by bm.insert_time desc
+    </select>
+    <select id="showBlogByType" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+         bm.id,
+         bm.blog_text,
+         bm.blog_title_img,
+         bm.insert_time,
+         bm.update_time,
+         bm.read_count,
+         bm.like_count,
+         bm.blog_title,
+         bm.blog_auth,
+         bt.id as "btid",
+         bt.blog_type,
+         bm.blog_description,
+         bm.blog_info_url,
+         bm.blog_uuid,
+         bm.next_blog_uuid,
+         bm.next_blog_title,
+         bm.last_blog_uuid,
+         bm.last_blog_title
+         from
+         blog_main bm
+         left join t_type bt ON bm.type_id=bt.id
+         where bm.type_id = (SELECT id from t_type t where t.blog_type = #{0})
+         order by bm.insert_time desc
+    </select>
+    <select id="getBlogByStatus" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+         bm.id,
+         bm.blog_text,
+         bm.blog_title_img,
+         bm.insert_time,
+         bm.update_time,
+         bm.read_count,
+         bm.like_count,
+         bm.blog_title,
+         bm.blog_auth,
+         bt.id as "btid",
+         bt.blog_type,
+         bm.blog_description,
+         bm.blog_info_url,
+         bm.blog_uuid,
+         bm.next_blog_uuid,
+         bm.next_blog_title,
+         bm.last_blog_uuid,
+         bm.last_blog_title
+         from
+         blog_main bm
+         left join t_type bt ON bm.type_id=bt.id
+         where bm.blog_status=#{0}
          order by bm.insert_time desc
     </select>
     <select id="showBlogByUUID" parameterType="java.lang.String" resultMap="BaseResultMap">

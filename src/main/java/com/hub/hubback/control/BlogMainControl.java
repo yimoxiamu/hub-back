@@ -34,11 +34,12 @@ public class BlogMainControl {
     BlogMainService blogMainService;
 
     @RequestMapping("/saveblog")
-    public Result saveBlog(String text, String title, String description, String blogType){
+    public Result saveBlog(String text, String title, String description, String blogType,String status){
         Map<String,String> map=new HashMap();
         String uuid=UUID.randomUUID().toString().replaceAll("-","");
         map.put("text",text);
         map.put("title",title);
+        map.put("status",status);
         map.put("description",description);
         map.put("blogType",blogType);
         map.put("insertTime",DateUtil.dataFormate(new Date()));
@@ -48,8 +49,12 @@ public class BlogMainControl {
     }
 
     @RequestMapping(value = "/showAllBlog")
-    public Result showAllBlog(){
-        return blogMainService.showBlog();
+    public Result showAllBlog(String type){
+        if(type.equals("m")){
+            return blogMainService.showBlog();
+        }else{
+            return blogMainService.showBlogByType(type);
+        }
     }
 
     @RequestMapping(value = "/showOneBlog")
@@ -70,6 +75,11 @@ public class BlogMainControl {
     @RequestMapping(value = "/getBlogByType")
     public Result getBlogByType(String id){
         return blogMainService.getBlogUrlByType(id);
+    }
+
+    @RequestMapping(value = "/getBlogByStatus")
+    public Result getBlogByStatus(String status){
+        return blogMainService.getBlogbyStatus(status);
     }
 
 }

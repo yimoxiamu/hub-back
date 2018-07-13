@@ -32,4 +32,5 @@ public class BlogMainEntity {
     private String last_blog_title;
     private String next_blog_uuid;
     private String next_blog_title;
+    private String blog_status;
 }

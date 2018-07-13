@@ -97,6 +97,18 @@ public class BlogMainServiceImpl implements BlogMainService {
     }
 
     @Override
+    public Result showBlogByType(String type) {
+        List<BlogMainEntity> list=new ArrayList<>();
+        try {
+            list= blogMainMapper.showBlogByType(type);
+        }catch (Exception e){
+            log.info(e.getMessage());
+            return new Result(CodeMsg.DB_ERROR);
+        }
+        return Result.success(list);
+    }
+
+    @Override
     public Result showBlogById(String uuid) {
         if(template.hasKey(uuid)){
             BlogMainEntity blogMainEntity=JSON.parseObject(template.opsForValue().get(uuid),BlogMainEntity.class);
@@ -146,5 +158,15 @@ public class BlogMainServiceImpl implements BlogMainService {
         return Result.success(list);
     }
 
-
+    @Override
+    public Result getBlogbyStatus(String status) {
+        List<BlogMainEntity> list=new ArrayList<>();
+        try {
+            list= blogMainMapper.getBlogByStatus(status);
+        }catch (Exception e){
+            log.info(e.getMessage());
+            return new Result(CodeMsg.DB_ERROR);
+        }
+        return Result.success(list);
+    }
 }

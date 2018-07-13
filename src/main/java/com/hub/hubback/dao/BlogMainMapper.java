@@ -13,4 +13,6 @@ public interface BlogMainMapper {
     void addLikeCount(String id);
     void updateBlog(BlogMainEntity blogMainEntity);
     List<BlogMainEntity> getBlogUrlByType(String uuid);
+    List<BlogMainEntity> showBlogByType(String type);
+    List<BlogMainEntity> getBlogByStatus(String status);
 }
