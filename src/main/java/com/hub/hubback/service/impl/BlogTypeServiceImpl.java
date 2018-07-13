@@ -35,4 +35,5 @@ public class BlogTypeServiceImpl implements BlogTypeService {
         }
         return Result.success(list);
     }
+
 }

@@ -14,6 +14,10 @@
         <result column="blog_info_url" property="blog_info_url" jdbcType="VARCHAR"/>
         <result column="blog_description" property="blog_description" jdbcType="VARCHAR"/>
         <result column="blog_uuid" property="blog_uuid" jdbcType="VARCHAR"/>
+        <result column="next_blog_uuid" property="next_blog_uuid" jdbcType="VARCHAR"/>
+        <result column="next_blog_title" property="next_blog_title" jdbcType="VARCHAR"/>
+        <result column="last_blog_title" property="last_blog_title" jdbcType="VARCHAR"/>
+        <result column="last_blog_uuid" property="last_blog_uuid" jdbcType="VARCHAR"/>
         <association property="blogTypeEntity" javaType="com.hub.hubback.entity.BlogTypeEntity" column="type_id">
             <id column="btid" property="id" jdbcType="INTEGER"/>
             <result column="blog_type" property="blog_type" jdbcType="VARCHAR"/>
@@ -56,7 +60,19 @@
                 blog_info_url,
             </if>
             <if test="blog_uuid!=null and blog_uuid.length()>0">
-                blog_uuid
+                blog_uuid,
+            </if>
+            <if test="next_blog_uuid!=null and next_blog_uuid.length()>0">
+                next_blog_uuid,
+            </if>
+            <if test="next_blog_title!=null and next_blog_title.length()>0">
+                next_blog_title,
+            </if>
+            <if test="last_blog_uuid!=null and last_blog_uuid.length()>0">
+                last_blog_uuid,
+            </if>
+            <if test="last_blog_title!=null and last_blog_title.length()>0">
+                last_blog_title
             </if>
         </trim>
     </sql>
@@ -96,7 +112,19 @@
                 #{blog_info_url},
             </if>
             <if test="blog_uuid!=null and blog_uuid.length()>0">
-                #{blog_uuid}
+                #{blog_uuid},
+            </if>
+            <if test="next_blog_uuid!=null and next_blog_uuid.length()>0">
+                #{next_blog_uuid},
+            </if>
+            <if test="next_blog_title!=null and next_blog_title.length()>0">
+                #{next_blog_title},
+            </if>
+            <if test="last_blog_uuid!=null and last_blog_uuid.length()>0">
+                #{last_blog_uuid},
+            </if>
+            <if test="last_blog_title!=null and last_blog_title.length()>0">
+                #{last_blog_title}
             </if>
         </trim>
     </sql>
@@ -115,7 +143,11 @@
          bt.blog_type,
          bm.blog_description,
          bm.blog_info_url,
-         bm.blog_uuid
+         bm.blog_uuid,
+         bm.next_blog_uuid,
+         bm.next_blog_title,
+         bm.last_blog_uuid,
+         bm.last_blog_title
          from
          blog_main bm
          left join t_type bt ON bm.type_id=bt.id
@@ -136,11 +168,22 @@
          bt.blog_type,
          bm.blog_description,
          bm.blog_info_url,
-         bm.blog_uuid
+         bm.blog_uuid,
+         bm.next_blog_uuid,
+         bm.next_blog_title,
+         bm.last_blog_uuid,
+         bm.last_blog_title
          from
          blog_main bm
          left join t_type bt ON bm.type_id=bt.id
          where bm.blog_uuid=#{0}
+    </select>
+    <select id="getBlogUrlByType" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select  bm.blog_title,bm.blog_info_url
+        from blog_main bm
+        where bm.type_id=(
+          select bm1.type_id from blog_main bm1 where bm1.blog_uuid=#{0}
+        )
     </select>
     <insert id="saveBlog" parameterType="java.util.Map">
         insert into blog_main (<include refid="key"></include>) values(<include refid="value"></include>)
@@ -176,5 +219,13 @@
 		        ) bm3
                                   ) + 1
           where bm1.blog_uuid=#{0}
+    </update>
+    <update id="updateBlog" parameterType="com.hub.hubback.entity.BlogMainEntity">
+        update blog_main bm
+        set bm.next_blog_uuid=#{next_blog_uuid},
+        bm.last_blog_uuid=#{last_blog_uuid},
+        bm.next_blog_title=#{next_blog_title},
+        bm.last_blog_title=#{last_blog_title}
+        where bm.blog_uuid=#{blog_uuid}
     </update>
 </mapper>

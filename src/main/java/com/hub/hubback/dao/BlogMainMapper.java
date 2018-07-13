@@ -11,4 +11,6 @@ public interface BlogMainMapper {
     BlogMainEntity showBlogByUUID(String id);
     void addReadCount(String id);
     void addLikeCount(String id);
+    void updateBlog(BlogMainEntity blogMainEntity);
+    List<BlogMainEntity> getBlogUrlByType(String uuid);
 }

@@ -67,4 +67,9 @@ public class BlogMainControl {
         return blogMainService.addLikeCount(id);
     }
 
+    @RequestMapping(value = "/getBlogByType")
+    public Result getBlogByType(String id){
+        return blogMainService.getBlogUrlByType(id);
+    }
+
 }
