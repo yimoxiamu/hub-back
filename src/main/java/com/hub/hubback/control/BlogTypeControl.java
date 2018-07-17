@@ -29,8 +29,12 @@ public class BlogTypeControl {
 
     @RequestMapping("/defaultType")
     public Result getAllType(){
-
         return blogTypeService.getAllType();
     }
+    @RequestMapping(value = "/addType")
+    public Result addType(String type){
+        return blogTypeService.addType(type);
+    }
+
 
 }

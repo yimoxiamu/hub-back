@@ -19,7 +19,7 @@ public class ImgControl {
     public Result<String> uploadImg(@RequestParam MultipartFile img) throws IOException {
         IOUtil ioUtil=new IOUtil();
         log.info(img.getContentType()+"  "+img.getOriginalFilename()+" "+img.getName());
-        String filename="http://39.106.1.43:9595/images/"+ioUtil.ImgUpload(img);
+        String filename="http://yimoxiamu.com:9595/images/"+ioUtil.ImgUpload(img);
        return Result.success(filename);
     }
 

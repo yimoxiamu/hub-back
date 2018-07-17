@@ -12,4 +12,7 @@
     from
     t_type
     </select>
+    <insert id="addType" parameterType="java.lang.String">
+        insert into t_type (`blog_type`) values (#{0})
+    </insert>
 </mapper>

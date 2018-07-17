@@ -34,7 +34,7 @@ public class BlogMainControl {
     BlogMainService blogMainService;
 
     @RequestMapping("/saveblog")
-    public Result saveBlog(String text, String title, String description, String blogType,String status){
+    public Result saveBlog(String text, String title, String description, String blogType,String status,String titleImg){
         Map<String,String> map=new HashMap();
         String uuid=UUID.randomUUID().toString().replaceAll("-","");
         map.put("text",text);
@@ -45,6 +45,8 @@ public class BlogMainControl {
         map.put("insertTime",DateUtil.dataFormate(new Date()));
         map.put("blog_uuid",uuid);
         map.put("blog_info_url","info.html?"+uuid);
+        map.put("blog_title_img",titleImg);
+        log.info("sssssssssssssssssssss"+titleImg);
         return blogMainService.saveBlog(map);
     }
 

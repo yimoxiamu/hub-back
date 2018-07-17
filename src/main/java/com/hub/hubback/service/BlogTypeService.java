@@ -5,4 +5,5 @@ import com.hub.hubback.util.Result;
 
 public interface BlogTypeService {
     Result getAllType();
+    Result addType(String type);
 }

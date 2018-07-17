@@ -36,4 +36,14 @@ public class BlogTypeServiceImpl implements BlogTypeService {
         return Result.success(list);
     }
 
+    @Override
+    public Result addType(String type) {
+        try {
+            blogTypeMapper.addType(type);
+        }catch (Exception e){
+            return new Result(CodeMsg.DB_ERROR);
+        }
+        return Result.success("success");
+    }
+
 }

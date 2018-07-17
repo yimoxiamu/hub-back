@@ -8,4 +8,5 @@ import java.util.List;
 @Mapper
 public interface BlogTypeMapper {
     List<BlogTypeEntity> getAllType();
+    void addType(String type);
 }
