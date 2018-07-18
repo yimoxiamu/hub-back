@@ -13,4 +13,5 @@ public interface BlogMainService {
     Result addLikeCount(String uuid);
     Result getBlogUrlByType(String uuid);
     Result getBlogbyStatus(String status);
+    Result getBlogByFenYe(Map map);
 }

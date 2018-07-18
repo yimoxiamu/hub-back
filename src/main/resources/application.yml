@@ -18,4 +18,3 @@ mybatis:
 logging:
   level:
     com.hub.hubback.dao: debug
-  path: C:\Users\user\Desktop\log

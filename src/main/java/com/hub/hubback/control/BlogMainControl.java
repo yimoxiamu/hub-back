@@ -46,7 +46,6 @@ public class BlogMainControl {
         map.put("blog_uuid",uuid);
         map.put("blog_info_url","info.html?"+uuid);
         map.put("blog_title_img",titleImg);
-        log.info("sssssssssssssssssssss"+titleImg);
         return blogMainService.saveBlog(map);
     }
 
@@ -58,6 +57,17 @@ public class BlogMainControl {
             return blogMainService.showBlogByType(type);
         }
     }
+
+    @RequestMapping(value = "/showBlogFenYe")
+    public Result showBlogByFenYe(String type,String num){
+        int Num=Integer.valueOf(num);
+        Map map=new HashMap();
+        map.put("type",type);
+        map.put("num",(Num-1)*8);
+        map.put("size",8);
+        return blogMainService.getBlogByFenYe(map);
+    }
+
 
     @RequestMapping(value = "/showOneBlog")
     public Result showOneBlog(String id){

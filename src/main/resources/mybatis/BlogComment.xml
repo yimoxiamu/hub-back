@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hub.hubback.dao.BlogCommentMapper" >
+    <resultMap id="BaseResultMap" type="com.hub.hubback.entity.BlogCommentEntity" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="blog_comment" property="blog_comment" jdbcType="VARCHAR" />
+        <result column="blog_uuid" property="blog_uuid" jdbcType="VARCHAR" />
+        <result column="pull_time" property="pull_time" jdbcType="DATE" />
+    </resultMap>
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="blog_comment!=null">
+              blog_comment,
+            </if>
+            <if test="blog_uuid!=null">
+                blog_uuid,
+            </if>
+            <if test="pull_time!=null">
+                pull_time
+            </if>
+        </trim>
+    </sql>
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="blog_comment!=null">
+                #{blog_comment},
+            </if>
+            <if test="blog_uuid!=null">
+                #{blog_uuid},
+            </if>
+            <if test="pull_time!=null">
+                #{pull_time}
+            </if>
+        </trim>
+    </sql>
+    <select id="getCommentByUUID" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    *
+    from
+    blog_comment bc
+    where bc.blog_uuid=#{0}
+    </select>
+    <insert id="addComment" parameterType="java.util.Map">
+        insert into blog_comment (<include refid="key"></include>) values(<include refid="value"></include>)
+    </insert>
+</mapper>

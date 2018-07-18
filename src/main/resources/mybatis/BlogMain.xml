@@ -239,6 +239,60 @@
          left join t_type bt ON bm.type_id=bt.id
          where bm.blog_uuid=#{0}
     </select>
+    <select id="showBlogByFenYeAndType" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+         bm.id,
+         bm.blog_text,
+         bm.blog_title_img,
+         bm.insert_time,
+         bm.update_time,
+         bm.read_count,
+         bm.like_count,
+         bm.blog_title,
+         bm.blog_auth,
+         bt.id as "btid",
+         bt.blog_type,
+         bm.blog_description,
+         bm.blog_info_url,
+         bm.blog_uuid,
+         bm.next_blog_uuid,
+         bm.next_blog_title,
+         bm.last_blog_uuid,
+         bm.last_blog_title
+         from
+         blog_main bm
+         left join t_type bt ON bm.type_id=bt.id
+         where bm.type_id = (SELECT id from t_type t where t.blog_type = #{type})
+         order by bm.insert_time desc
+         limit #{num},#{size}
+    </select>
+    <select id="showBlogByFenYe" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+         bm.id,
+         bm.blog_text,
+         bm.blog_title_img,
+         bm.insert_time,
+         bm.update_time,
+         bm.read_count,
+         bm.like_count,
+         bm.blog_title,
+         bm.blog_auth,
+         bt.id as "btid",
+         bt.blog_type,
+         bm.blog_description,
+         bm.blog_info_url,
+         bm.blog_uuid,
+         bm.next_blog_uuid,
+         bm.next_blog_title,
+         bm.last_blog_uuid,
+         bm.last_blog_title
+         from
+         blog_main bm
+         left join t_type bt ON bm.type_id=bt.id
+         where bm.blog_status='0'
+         order by bm.insert_time desc
+         limit #{num},#{size}
+    </select>
     <select id="getBlogUrlByType" parameterType="java.lang.String" resultMap="BaseResultMap">
         select  bm.blog_title,bm.blog_info_url
         from blog_main bm

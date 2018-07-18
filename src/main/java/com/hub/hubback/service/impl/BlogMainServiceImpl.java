@@ -169,4 +169,27 @@ public class BlogMainServiceImpl implements BlogMainService {
         }
         return Result.success(list);
     }
+
+    @Override
+    public Result getBlogByFenYe(Map map) {
+        List<BlogMainEntity> list=new ArrayList<>();
+        if (map.get("type").equals("m")){
+            try {
+                list=blogMainMapper.showBlogByFenYe(map);
+            }catch (Exception e){
+                log.info(e.getMessage());
+                return new Result(CodeMsg.DB_ERROR);
+            }
+            return Result.success(list);
+        }else {
+            try {
+                list=blogMainMapper.showBlogByFenYeAndType(map);
+            }catch (Exception e){
+                log.info(e.getMessage());
+                return new Result(CodeMsg.DB_ERROR);
+            }
+            return Result.success(list);
+        }
+
+    }
 }

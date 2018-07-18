@@ -15,4 +15,6 @@ public interface BlogMainMapper {
     List<BlogMainEntity> getBlogUrlByType(String uuid);
     List<BlogMainEntity> showBlogByType(String type);
     List<BlogMainEntity> getBlogByStatus(String status);
+    List<BlogMainEntity> showBlogByFenYe(Map map);
+    List<BlogMainEntity> showBlogByFenYeAndType(Map map);
 }
