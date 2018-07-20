@@ -17,4 +17,5 @@ public interface BlogMainMapper {
     List<BlogMainEntity> getBlogByStatus(String status);
     List<BlogMainEntity> showBlogByFenYe(Map map);
     List<BlogMainEntity> showBlogByFenYeAndType(Map map);
+    void updateBlogByTitle(Map map);
 }

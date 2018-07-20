@@ -14,4 +14,5 @@ public interface BlogMainService {
     Result getBlogUrlByType(String uuid);
     Result getBlogbyStatus(String status);
     Result getBlogByFenYe(Map map);
+    Result updateBlog(Map map);
 }

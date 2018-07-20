@@ -35,7 +35,7 @@ public class BlogMainControl {
 
     @RequestMapping("/saveblog")
     public Result saveBlog(String text, String title, String description, String blogType,String status,String titleImg){
-        Map<String,String> map=new HashMap();
+        Map<String,String> map=new HashMap<>();
         String uuid=UUID.randomUUID().toString().replaceAll("-","");
         map.put("text",text);
         map.put("title",title);
@@ -47,6 +47,14 @@ public class BlogMainControl {
         map.put("blog_info_url","info.html?"+uuid);
         map.put("blog_title_img",titleImg);
         return blogMainService.saveBlog(map);
+    }
+
+    @RequestMapping(value = "/updateBlog")
+    public Result update(String text,String title){
+        Map map=new HashMap();
+        map.put("text",text);
+        map.put("title",title);
+        return blogMainService.updateBlog(map);
     }
 
     @RequestMapping(value = "/showAllBlog")

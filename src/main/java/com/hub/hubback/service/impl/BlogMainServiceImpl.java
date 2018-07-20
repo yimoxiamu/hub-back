@@ -192,4 +192,15 @@ public class BlogMainServiceImpl implements BlogMainService {
         }
 
     }
+
+    @Override
+    public Result updateBlog(Map map) {
+        try {
+            blogMainMapper.updateBlogByTitle(map);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return new Result(CodeMsg.DB_ERROR);
+        }
+        return Result.success("success");
+    }
 }

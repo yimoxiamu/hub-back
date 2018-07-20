@@ -319,6 +319,11 @@
                                   ) + 1
           where bm1.blog_uuid=#{0}
     </update>
+    <update id="updateBlogByTitle" parameterType="java.util.Map">
+    update blog_main
+    set blog_text=#{text}
+    where blog_title=#{title}
+    </update>
     <update id="addLikeCount" parameterType="java.lang.String">
         UPDATE blog_main bm1
           SET bm1.like_count = (
