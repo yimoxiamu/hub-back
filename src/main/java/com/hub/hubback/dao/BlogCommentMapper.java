@@ -8,4 +8,5 @@ import java.util.Map;
 public interface BlogCommentMapper {
     List<BlogCommentEntity> getCommentByUUID(String uuid);
     void addComment(Map map);
+    List<BlogCommentEntity> getCommentByParentId(String parentid);
 }

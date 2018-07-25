@@ -18,4 +18,5 @@ public class BlogCommentEntity {
     private String blog_comment;
     private String blog_uuid;
     private Date pull_time;
+    private String parent_id;
 }

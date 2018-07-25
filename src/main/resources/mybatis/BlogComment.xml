@@ -6,6 +6,7 @@
         <result column="blog_comment" property="blog_comment" jdbcType="VARCHAR" />
         <result column="blog_uuid" property="blog_uuid" jdbcType="VARCHAR" />
         <result column="pull_time" property="pull_time" jdbcType="DATE" />
+        <result column="parent_id" property="parent_id" jdbcType="VARCHAR" />
     </resultMap>
     <sql id="key">
         <trim suffixOverrides=",">
@@ -16,7 +17,10 @@
                 blog_uuid,
             </if>
             <if test="pull_time!=null">
-                pull_time
+                pull_time,
+            </if>
+            <if test="parent_id!=null">
+                parent_id
             </if>
         </trim>
     </sql>
@@ -29,7 +33,10 @@
                 #{blog_uuid},
             </if>
             <if test="pull_time!=null">
-                #{pull_time}
+                #{pull_time},
+            </if>
+            <if test="parent_id!=null">
+                #{parent_id}
             </if>
         </trim>
     </sql>
@@ -39,6 +46,13 @@
     from
     blog_comment bc
     where bc.blog_uuid=#{0}
+    and parent_id=0
+    order by pull_time
+    </select>
+    <select id="getCommentByParentId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from blog_comment bc
+        where bc.parent_id=#{0}
+        order by bc.pull_time
     </select>
     <insert id="addComment" parameterType="java.util.Map">
         insert into blog_comment (<include refid="key"></include>) values(<include refid="value"></include>)

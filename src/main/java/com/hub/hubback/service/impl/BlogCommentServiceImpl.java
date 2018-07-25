@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +38,18 @@ public class BlogCommentServiceImpl implements BlogCommentService {
             log.info(e.getMessage());
             return new Result(CodeMsg.DB_ERROR);
         }
-        return Result.success(list);
+
+        List newList=new ArrayList();
+        for (BlogCommentEntity blog: list) {
+            Map<String,Object> maps=new HashMap<>();
+            maps.put("blogFather",blog);
+            List<BlogCommentEntity> sonList=blogCommentMapper.getCommentByParentId(String.valueOf(blog.getId()));
+            if(sonList.size()>0){
+                maps.put("blogSun",sonList);
+            }
+            newList.add(maps);
+        }
+        return Result.success(newList);
     }
 
     @Override
